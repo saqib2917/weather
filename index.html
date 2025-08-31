@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherScape | Real-Time Weather Dashboard</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><style>@media (prefers-color-scheme: dark) { .icon { fill: white; } } @media (prefers-color-scheme: light) { .icon { fill: black; } }</style></defs><text class='icon' y='.9em' font-size='90'>🌤️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="day">
+    <div class="overlay" id="settingsOverlay"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2 class="settings-title">Settings</h2>
+            <button class="close-settings" id="closeSettings">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">Temperature Unit</label>
+            <select class="select-unit" id="unitSelect">
+                <option value="celsius">Celsius (°C)</option>
+                <option value="fahrenheit">Fahrenheit (°F)</option>
+            </select>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">Dark Mode</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">Animated Background</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="animatedBgToggle" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">Location Access</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="locationAccessToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <div class="setting-group">
+            <label class="setting-label">Notifications</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="notificationsToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        
+        <button class="btn" id="saveSettings" style="width: 100%; justify-content: center; margin-top: 20px;">
+            <i class="fas fa-save"></i> Save Settings
+        </button>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-cloud-sun fa-2x"></i>
+                <h1>WeatherScape</h1>
+            </div>
+            <div class="controls">
+                <button class="btn" id="locationBtn"><i class="fas fa-map-marker-alt"></i> My Location</button>
+                <button class="btn" id="settingsBtn"><i class="fas fa-sliders-h"></i> Settings</button>
+            </div>
+        </header>
+        
+        <div class="search-container">
+            <input type="text" class="search-box" id="searchInput" placeholder="Search for a city or place...">
+            <button class="search-btn" id="searchBtn"><i class="fas fa-search"></i></button>
+        </div>
+        
+        <div class="dashboard">
+            <div class="card main-card">
+                <div class="main-info">
+                    <h2 class="location" id="locationName">Barcelona, Spain</h2>
+                    <p class="date" id="currentDate">Wednesday, October 11 • 3:45 PM</p>
+                    <div class="weather-condition">
+                        <i class="fas fa-sun weather-icon" id="weatherIcon"></i>
+                        <span id="weatherDescription">Sunny</span>
+                    </div>
+                </div>
+                <div class="temperature" id="temperature">24°C</div>
+            </div>
+            
+            <div class="card">
+                <h3>Weather Details</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-wind detail-icon"></i>
+                        <div class="detail-value" id="windSpeed">12 km/h</div>
+                        <div class="detail-label">Wind Speed</div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-tint detail-icon"></i>
+                        <div class="detail-value" id="humidity">65%</div>
+                        <div class="detail-label">Humidity</div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-compress detail-icon"></i>
+                        <div class="detail-value" id="pressure">1013 hPa</div>
+                        <div class="detail-label">Pressure</div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-eye detail-icon"></i>
+                        <div class="detail-value" id="visibility">10 km</div>
+                        <div class="detail-label">Visibility</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Sun & Moon</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <i class="fas fa-sun detail-icon"></i>
+                        <div class="detail-value" id="sunrise">7:24 AM</div>
+                        <div class="detail-label">Sunrise</div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-moon detail-icon"></i>
+                        <div class="detail-value" id="sunset">6:52 PM</div>
+                        <div class="detail-label">Sunset</div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-long-arrow-alt-up detail-icon"></i>
+                        <div class="detail-value" id="solarNoon">12:08 PM</div>
+                        <div class="detail-label">Solar Noon</div>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock detail-icon"></i>
+                        <div class="detail-value" id="daylight">11h 28m</div>
+                        <div class="detail-label">Daylight</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h3>7-Day Forecast</h3>
+        <div class="forecast" id="forecastContainer">
+            <!-- Forecast items will be generated here -->
+        </div>
+        
+        <h3>Weather Visualization</h3>
+        <div class="visualization" id="weatherViz">
+            <div class="visual-background"></div>
+            <div class="sun-path"></div>
+            <div class="sun pulse" id="sun"></div>
+            <div class="moon pulse" id="moon"></div>
+            <div class="stars" id="stars"></div>
+            <div class="cloud" id="cloud1"></div>
+            <div class="cloud" id="cloud2"></div>
+            <div class="cloud" id="cloud3"></div>
+            <div id="rainContainer"></div>
+            <div id="lightningContainer"></div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 WeatherScape • Data provided by Open-Meteo • Design with <i class="fas fa-heart" style="color: #ff5252;"></i></p>
+        </div>
+    </div>
+        <script src="js.js"></script>
+</body>
+</html>
